@@ -4,25 +4,26 @@
             <div class="col-md-12">
                 <div class="d-flex align-items-center gap-3 justify-content-between ct_flex_col_575">
                     <h4 class="d-flex align-items-center gap-2 ct_fw_600 ct_ff_Rajdhani mb-0"><a
-                           routerLink="/home/user-management" class="ct_black_text"><i
+                            routerLink="/home/user-management" class="ct_black_text"><i
                                 class="fa-solid fa-angle-left"></i></a>User Details</h4>
                 </div>
 
                 <div class="ct_pt_30  ct_pb_30">
                     <div class="ct_grey_bg">
                         <div class="d-flex align-items-center gap-3 ct_mt_20">
-                            <img src="assets/img/user.jpg" alt="" class="ct_img_w_140 ct_cursor_pointer"
-                                data-bs-toggle="modal" data-bs-target="#full_view_img">
+                            <img [src]="userData?.profile_image ? userData?.profile_image : 'assets/img/np_pro.png'"
+                                alt="" class="ct_img_w_140 ct_cursor_pointer" data-bs-toggle="modal"
+                                data-bs-target="#full_view_img">
                             <div>
-                                <h5 class="ct_fs_24 ct_fw_600 mb-0 ct_ff_lato">John Anderson</h5>
+                                <h5 class="ct_fs_24 ct_fw_600 mb-0 ct_ff_lato">{{userData?.full_name}}</h5>
                                 <ul class="d-flex align-items-center gap-2 ct_fw_600 mt-2 ct_flex_col_575">
                                     <li class="ct_text_666 d-flex align-items-center gap-2">
                                         <img src="assets/img/grey_user_icon.svg" alt="">
-                                        344 Followers
+                                        {{userData?.follower_count}}
                                     </li>
                                     <li class="ct_text_666 d-flex align-items-center gap-2 ct_fw_600">
                                         <img src="assets/img/grey_user_icon.svg" alt="">
-                                        144 Followings
+                                        {{userData?.following_count}}
                                     </li>
                                 </ul>
                             </div>
@@ -38,38 +39,36 @@
                                 <div class="col-lg-5">
                                     <div class="mb-4">
                                         <h5 class="ct_fs_16 ct_fw_600 mb-2">Full Name</h5>
-                                        <p class="mb-0  ct_text_666">John Anderson</p>
+                                        <p class="mb-0  ct_text_666">{{userData?.full_name}}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-7">
                                     <div class="mb-4">
                                         <h5 class="ct_fs_16 ct_fw_600 mb-2">Username</h5>
-                                        <p class="mb-0  ct_text_666">johnanderson</p>
+                                        <p class="mb-0  ct_text_666">{{userData?.user_name ? userData?.user_name : '-'}}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
                                     <div class="mb-4">
                                         <h5 class="ct_fs_16 ct_fw_600 mb-2">Gender</h5>
-                                        <p class="mb-0  ct_text_666">Male</p>
+                                        <p class="mb-0  ct_text_666">{{userData?.gender ? userData?.gender : '-'}}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-7">
                                     <div class="mb-4">
                                         <h5 class="ct_fs_16 ct_fw_600 mb-2">About Him</h5>
-                                        <p class="mb-0  ct_text_666 ct_para_scroll ct_custom_scroll">Passionate golfer
-                                            with 15 years of experience. Love playing competitive matches and sharing
-                                            tips with fellow golfers.</p>
+                                        <p class="mb-0  ct_text_666 ct_para_scroll ct_custom_scroll">{{userData?.about ?
+                                            userData?.about : '-'}}
+                                        </p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
-
                 </div>
 
-                <div class="row mt-4">
+                <!-- <div class="row mt-4">
                     <div class="col-md-12">
                         <div class="ct_white_bg p-4">
                             <h4 class="ct_fs_24 ct_fw_600 mb-4">Golf Statistics</h4>
@@ -99,11 +98,10 @@
                                             Andrews</p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -123,7 +121,7 @@
             </div>
             <div class="modal-body">
                 <div class="ct_full_view_img">
-                    <img src="assets/img/user.jpg" alt="">
+                    <img [src]="userData?.profile_image ? userData?.profile_image : 'assets/img/np_pro.png'" alt="">
                 </div>
             </div>
 

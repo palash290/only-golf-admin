@@ -1,1 +1,74 @@
-/* You can add global styles to this file, and also import other style files */
+.ct_text_red {
+  color: rgb(180, 0, 0);
+}
+
+.err_msg{
+  color: rgb(180, 0, 0);
+}
+
+.mySwiperMain .swiper-button-prev,
+.mySwiperMain .swiper-button-next {
+  width: 30px;
+  height: 30px;
+  background: #f7f7f7;
+  border-radius: 5px;
+  transform: translateY(-50%);
+  top: 40%;
+}
+
+.mySwiperMain .swiper-button-prev:after,
+.mySwiperMain .swiper-button-next:after {
+  font-size: 16px !important;
+  color: #000;
+  font-weight: 600;
+}
+
+.ct_card_small_thumb {
+  margin-top: 20px;
+}
+
+.ct_card_small_thumb img {
+  height: 118px;
+  object-fit: contain;
+  background-color: #e6e6e6;
+  width: 100% !important;
+  object-position: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.swiper-slide-thumb-active img {
+  transform: scale(1) !important;
+  /* border: 1px solid #e6e6e6; */
+  border-color: #000;
+
+}
+
+.ct_otp_inputs input {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #eee;
+}
+
+.ct_otp_inputs input:focus {
+  border-color: var(--green);
+  box-shadow: unset;
+}
+
+.ct_otp_inputs .ant-otp {
+  justify-content: center;
+  margin-top: 30px;
+}
+
+pagination-controls.ct_pagination_div {
+  text-align: end;
+}
+
+.ct_pagination_div ul.ngx-pagination {
+  margin-top: 10px;
+}
+
+.ct_pagination_div .ngx-pagination .current {
+  background-color: #0A5F2F;
+}

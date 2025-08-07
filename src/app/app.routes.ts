@@ -8,9 +8,7 @@ export const routes: Routes = [
     },
     {
         path: 'forgot-password',
-        loadComponent: () => import('./components/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent),
-        pathMatch: 'full',
-        title: 'Forgot Password',
+        loadComponent: () => import('./components/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
     },
     {
         path: 'reset-password',
@@ -37,50 +35,50 @@ export const routes: Routes = [
             {
                 path: 'user-management',
                 loadComponent: () => import('./components/user-management/user-management.component').then(m => m.UserManagementComponent),
-                title: 'user-management',
+                title: 'User-Management',
                 // canActivate: [authGuard]
             },
             {
                 path: 'view-user',
                 loadComponent: () => import('./components/user-management/view-user/view-user.component').then(m => m.ViewUserComponent),
-                title: 'view-user',
+                title: 'View-User',
                 // canActivate: [authGuard]
             },
             {
                 path: 'seller-management',
                 loadComponent: () => import('./components/seller-management/seller-management.component').then(m => m.SellerManagementComponent),
-                title: 'seller-management',
+                title: 'Seller-Management',
                 // canActivate: [authGuard]
             },
             {
                 path: 'view-seller',
                 loadComponent: () => import('./components/seller-management/view-seller/view-seller.component').then(m => m.ViewSellerComponent),
-                title: 'view-seller',
+                title: 'View-Seller',
                 // canActivate: [authGuard]
             },
             {
                 path: 'seller-payout',
                 loadComponent: () => import('./components/seller-payout/seller-payout.component').then(m => m.SellerPayoutComponent),
-                title: 'seller-payout',
+                title: 'Seller-Payout',
                 // canActivate: [authGuard]
             },
 
             {
                 path: 'order-management',
                 loadComponent: () => import('./components/order-management/order-management.component').then(m => m.OrderManagementComponent),
-                title: 'seller-management',
+                title: 'Seller-Management',
                 // canActivate: [authGuard]
             },
             {
                 path: 'view-order',
                 loadComponent: () => import('./components/order-management/view-order/view-order.component').then(m => m.ViewOrderComponent),
-                title: 'view-order',
+                title: 'View-Order',
                 // canActivate: [authGuard]
             },
             {
                 path: 'product-management',
                 loadComponent: () => import('./components/product-management/product-management.component').then(m => m.ProductManagementComponent),
-                title: 'seller-management',
+                title: 'Seller-Management',
                 // canActivate: [authGuard]
             },
             {

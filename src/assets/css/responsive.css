@@ -1,81 +1,109 @@
-
-
-@media screen and (max-width:1199px){
-  .ct_fs_28{
+@media screen and (max-width:1199px) {
+  .ct_fs_28 {
     font-size: 24px;
   }
- 
+
 }
+
 @media screen and (max-width: 991px) {
   .ct_side_bar {
     left: -100%;
   }
-  .ct_right_panel{
+
+  .ct_right_panel {
     width: 100%;
     margin: 0px;
   }
-  .ct_menu_bar{
+
+  .ct_menu_bar {
     color: #222222;
     display: block;
   }
 
-  main.ct_active .ct_side_bar{
+  main.ct_active .ct_side_bar {
     left: 0px;
 
   }
-   main.ct_active .ct_right_panel{
+
+  main.ct_active .ct_right_panel {
     width: 100%;
     margin-left: 0px;
-}
-.ct_login_left_img {
+  }
+
+  .ct_login_left_img {
     display: none;
   }
+
   .ct_login_white_bg {
     border-radius: 20px;
     grid-template-columns: auto;
   }
-  
 
- 
+  .ct_close_sidebar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: block;
+    transition: 0.4s ease all;
+    font-size: 20px;
+  }
+
+  .ct_close_sidebar:hover {
+    transform: rotate(360deg);
+  }
 
 
 }
 
 @media screen and (max-width: 767px) {
-.ct_fs_60 {
+  .ct_fs_60 {
     font-size: 38px;
-}
-.ct_flex_col_767{
-  flex-direction: column;
-  align-items: start !important;
-}
-.ct_w_100_767 {
-    width: 100%;
-}
+  }
 
-.ct_img_w_140{
-  width: 100px;
-  height: 100px;
-}
+  .ct_flex_col_767 {
+    flex-direction: column;
+    align-items: start !important;
+  }
+
+  .ct_w_100_767 {
+    width: 100% !important;
+  }
+
+  .ct_img_w_140 {
+    width: 100px;
+    height: 100px;
+  }
 }
 
 
 @media screen and (max-width: 575px) {
- .ct_review_main_grid{
-  grid-template-columns: auto;
- }
- .ct_flex_col_575{
-  flex-direction: column;
-  align-items: start !important;
-}
-.ct_w_100_575 {
+  .ct_review_main_grid {
+    grid-template-columns: auto;
+  }
+
+  .ct_flex_col_575 {
+    flex-direction: column;
+    align-items: start !important;
+  }
+
+  .ct_w_100_575 {
     width: 100%;
-}
-.ct_grey_bg{
-  padding: 20px;
-}
-.ct_img_w_140{
-  width: 60px;
-  height: 60px;
-}
+  }
+
+  .ct_grey_bg {
+    padding: 20px;
+  }
+
+  .ct_img_w_140 {
+    width: 60px;
+    height: 60px;
+  }
+
+  .ct_right_dropdown button {
+    gap: 10px;
+  }
+
+  .ct_right_dropdown p {
+    font-size: 14px;
+  }
 }

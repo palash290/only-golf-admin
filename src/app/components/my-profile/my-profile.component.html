@@ -7,10 +7,13 @@
                 <div class="ct_px_30_new  ct_outline_bg">
                     <div class="d-flex align-items-center justify-content-between gap-3 ct_flex_col_767">
                         <div class="d-flex align-items-center gap-4">
-                            <div class="ct_upload_user_profile_img">
-                                <img src="assets/img/user.jpg" alt="" />
+                             <div class="ct_upload_user_profile_img mx-auto">
+                                <img [src]="profile_image ? profile_image : 'assets/img/np_pro.png'" alt=""
+                                    class="ct_img_w_148" />
                                 <label for="ct_upload_user_profile2" class="position-relative d-block">
-                                    <input type="file" class="d-none" id="ct_upload_user_profile2" />
+                                    <input type="file" class="d-none" id="ct_upload_user_profile2"
+                                        (change)="onLogoChange($event)" accept="image/*" />
+
                                     <div class="ct_authore_banner_upload_icon_12">
                                         <i class="fa-solid fa-pencil"></i>
                                     </div>
@@ -19,36 +22,42 @@
                             <div>
                                 <h4 class="ct_fs_18 ct_fw_700 mb-1">Alice Johnson</h4>
                                 <p class="mb-0 ct_text_op_05 ct_fs_14">
-                                    Alicejhonson2025gmail.com
+                                    {{Form.get('email')?.value}}
                                 </p>
                             </div>
                         </div>
-                        <a href="shop-customization.html" class="ct_outline_btn ct_border_radius_10 ct_w_100_767">
+                        <!-- <a href="shop-customization.html" class="ct_outline_btn ct_border_radius_10 ct_w_100_767">
                             <i class="fa-solid fa-pencil me-2"></i> Edit Shop Details
-                        </a>
+                        </a> -->
                     </div>
 
-                    <form class="mt-5">
+                    <form [formGroup]="Form" class="mt-5">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-4">
                                     <label for="" class="ct_fw_600 mb-2">Full Name</label>
                                     <input type="text" class="form-control ct_input" placeholder="Full name"
-                                        value="Alice " />
+                                        value="Alice " formControlName="name" />
+                                    <span class="ct_text_red mt-2">{{validationErrorService.getErrorMessage('Name
+                                        name',
+                                        Form.get('name'))}}</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group mb-4">
                                     <label for="" class="ct_fw_600 mb-2">Email Address</label>
-                                    <input type="email" class="form-control ct_input " disabled
-                                        placeholder="Email address" value="alice@gmail.com" />
+                                    <input type="email" class="form-control ct_input" placeholder="Email address"
+                                        value="alice@gmail.com" formControlName="email" />
                                 </div>
                             </div>
 
                         </div>
 
                         <div class="mt-4">
-                            <button type="button" class="ct_dark_green_btn">Save Changes</button>
+                            <button type="submit" class="ct_dark_green_btn ct_border_radius_5 ct_fw_600"
+                                [disabled]="Form.invalid" (click)="submitDetails()">
+                                Save Changes
+                            </button>
                         </div>
                     </form>
                 </div>

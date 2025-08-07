@@ -1,8 +1,8 @@
 <header>
     <div class="d-flex align-items-center gap-2">
-        <i class="fa-solid fa-bars me-3 ct_fs_18 ct_menu_bar"></i>
+        <i class="fa-solid fa-bars me-3 ct_fs_18 ct_menu_bar" (click)="toggleMenu()"></i>
         <div class="d-none d-lg-block">
-            <h4 class="ct_fs_22 ct_fw_600 ct_ff_lato mb-0">Hi, Jenny 👋</h4>
+            <h4 class="ct_fs_22 ct_fw_600 ct_ff_lato mb-0">Hi, {{name}} 👋</h4>
             <p class="mb-0 ct_tex_6B7280 ct_ff_lato">
                 Let’s keep things rolling smoothly
             </p>
@@ -27,10 +27,10 @@
         <div class="ct_right_dropdown dropdown">
             <button id="dropdownMenuButton" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="d-flex align-items-center gap-2">
-                    <img src="assets/img/user.jpg" alt="" />
+                    <img [src]="businessLogoUrl ? businessLogoUrl : 'assets/img/np_pro.png'" alt="" />
                     <div class="text-start">
                         <p class="ct_fs_16 mb-0 ct_fw_500 ct_white_nowrap">
-                            Evon Grills
+                            {{name}}
                         </p>
                         <small class="ct_text_939393">Admin</small>
                     </div>
@@ -70,9 +70,11 @@
                         <button type="button" class="ct_outline_btn w-100 ct_fw_600" data-bs-dismiss="modal">
                             Cancel
                         </button>
-                        <a href="login.html" class="ct_border_radius_10 ct_dark_green_btn w-100 ct_fw_600 text-center">
+                        <a (click)="logout()" class="ct_border_radius_10 ct_dark_green_btn w-100 ct_fw_600 text-center">
                             Yes
                         </a>
+                        <button hidden type="button" class="btn btn-secondary" #closeModal
+                            data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
