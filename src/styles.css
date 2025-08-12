@@ -2,7 +2,7 @@
   color: rgb(180, 0, 0);
 }
 
-.err_msg{
+.err_msg {
   color: rgb(180, 0, 0);
 }
 
@@ -71,4 +71,8 @@ pagination-controls.ct_pagination_div {
 
 .ct_pagination_div .ngx-pagination .current {
   background-color: #0A5F2F;
+}
+
+.ct_color {
+  color: black !important;
 }

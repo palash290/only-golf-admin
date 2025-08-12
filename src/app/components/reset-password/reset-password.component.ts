@@ -51,7 +51,7 @@ export class ResetPasswordComponent {
   onSubmit() {
     this.Form.markAllAsTouched()
     if (this.Form.valid) {
-      this.isLoading = true
+      this.isLoading = true;
       const formURlData = new URLSearchParams()
       formURlData.set('email', this.userEmail)
       formURlData.set('otp', this.Form.value.otp)

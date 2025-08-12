@@ -42,17 +42,17 @@ export class LoginComponent {
         next: (resp: any) => {
           if (resp.success == true) {
             this.service.setToken(resp.data);
-            // this.toastr.success(resp.message);
+            this.toastr.success(resp.message);
             this.isLoading = false;
             this.route.navigateByUrl('/home/dashboard')
           } else {
-            // this.toastr.warning(resp.message);
+            this.toastr.warning(resp.message);
             this.isLoading = false;
           }
         },
         error: (error) => {
           this.isLoading = false;
-          // this.toastr.warning(error || 'Something went wrong!');
+          this.toastr.warning(error || 'Something went wrong!');
         }
       });
     }

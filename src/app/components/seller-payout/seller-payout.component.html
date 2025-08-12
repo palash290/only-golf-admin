@@ -6,38 +6,25 @@
                     <h4 class="ct_fs_28 ct_fw_600 mb-0 ct_ff_Rajdhani">Seller Payout</h4>
                     <div class="d-flex align-items-center gap-2 ct_w_100_575">
                         <div class="ct_search ct_w_100_575">
-                            <input type="text" class="form-control" placeholder="Search" />
+                            <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText"
+                                (input)="filterTable()" />
                             <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <div class="form-group ct_w_100_767">
+                            <select id="statusFilter"
+                                class="form-control ct_h_40 ct_border_radius_10 ct_input ct_w_100_767 w-auto d-inline-block"
+                                [(ngModel)]="selectedStatus" (change)="filterTable()">
+                                <option value="" disabled>Select Status</option>
+                                <option value="ALL">All</option>
+                                <option value="APPROVED">Completed</option>
+                                <option value="PENDING">Pending</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
                 <div>
-                    <ul class="nav nav-pills mb-3 ct_custom_tabs ct_flex_col_575" id="pills-tab" role="tablist">
-                        <li class="nav-item ct_w_100_575" role="presentation">
-                            <button class="nav-link ct_w_100_575 active" id="pills-All-tab" data-bs-toggle="pill"
-                                data-bs-target="#pills-All" type="button" role="tab" aria-controls="pills-All"
-                                aria-selected="true">
-                                All
-                            </button>
-                        </li>
-                        <li class="nav-item ct_w_100_575" role="presentation">
-                            <button class="nav-link ct_w_100_575" id="pills-Completed-tab" data-bs-toggle="pill"
-                                data-bs-target="#pills-Completed" type="button" role="tab"
-                                aria-controls="pills-Completed" aria-selected="false" tabindex="-1">
-                                Completed
-                            </button>
-                        </li>
-                        <li class="nav-item ct_w_100_575" role="presentation">
-                            <button class="nav-link ct_w_100_575" id="pills-Pending-tab" data-bs-toggle="pill"
-                                data-bs-target="#pills-Pending" type="button" role="tab" aria-controls="pills-Pending"
-                                aria-selected="false" tabindex="-1">
-                                Pending
-                            </button>
-                        </li>
 
-
-                    </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade active show" id="pills-All" role="tabpanel"
                             aria-labelledby="pills-All-tab">
@@ -55,7 +42,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr *ngIf="filteredData.length == 0">
+                                            <td colspan="8" class="text-center">No data found</td>
+                                        </tr>
+                                        <tr
+                                            *ngFor="let item of filteredData | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
                                             <td>1</td>
                                             <td>
                                                 <img src="assets/img/business_logo_1.png" alt=""
@@ -63,90 +54,13 @@
                                                     data-bs-target="#full_view_img">
                                             </td>
                                             <td>
-                                                Golfsmith Lane
+                                                 {{item.business_name}}
                                             </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
+                                            <td>{{item.full_name}}</td>
+                                            <td>{{item.created_at | date:'dd-MMM-yyyy'}}</td>
                                             <td>
                                                 <span class="ct_green_clr ct_fw_600">Paid</span>
-                                            </td>
-                                            <td>
-                                                -
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_orange_clr ct_fw_600">Pending</span>
-                                            </td>
-                                            <td>
-                                                <button
-                                                    class="ct_dark_green_btn ct_border_radius_5 h-auto py-3">Pay</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_green_clr ct_fw_600">Paid</span>
-                                            </td>
-                                            <td>
-                                                -
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_orange_clr ct_fw_600">Pending</span>
-                                            </td>
-                                            <td>
-                                                <button
-                                                    class="ct_dark_green_btn ct_border_radius_5 h-auto py-3">Pay</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_orange_clr ct_fw_600">Pending</span>
+                                                <!-- <span class="ct_orange_clr ct_fw_600">Pending</span> -->
                                             </td>
                                             <td>
                                                 <button
@@ -156,245 +70,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <pagination-controls class="ct_pagination_div" *ngIf="!(data?.length == 0)"
+                                (pageChange)="p = $event"></pagination-controls>
                         </div>
-                        <div class="tab-pane fade" id="pills-Completed" role="tabpanel"
-                            aria-labelledby="pills-Completed-tab">
-                            <div class="table-responsive ct_custom_table">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>S.No</th>
-                                            <th>Business Logo</th>
-                                            <th>Business Name</th>
-                                            <th>Seller Name</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_green_clr ct_fw_600">Paid</span>
-                                            </td>
-                                            <td>
-                                                -
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_green_clr ct_fw_600">Paid</span>
-                                            </td>
-                                            <td>
-                                                -
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_green_clr ct_fw_600">Paid</span>
-                                            </td>
-                                            <td>
-                                                -
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_green_clr ct_fw_600">Paid</span>
-                                            </td>
-                                            <td>
-                                                -
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_green_clr ct_fw_600">Paid</span>
-                                            </td>
-                                            <td>
-                                                -
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                        <div class="tab-pane fade" id="pills-Pending" role="tabpanel"
-                            aria-labelledby="pills-Pending-tab">
-                            <div class="table-responsive ct_custom_table">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>S.No</th>
-                                            <th>Business Logo</th>
-                                            <th>Business Name</th>
-                                            <th>Seller Name</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_orange_clr ct_fw_600">Pending</span>
-                                            </td>
-                                            <td>
-                                                <button
-                                                    class="ct_dark_green_btn ct_border_radius_5 h-auto py-3">Pay</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_orange_clr ct_fw_600">Pending</span>
-                                            </td>
-                                            <td>
-                                                <button
-                                                    class="ct_dark_green_btn ct_border_radius_5 h-auto py-3">Pay</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_orange_clr ct_fw_600">Pending</span>
-                                            </td>
-                                            <td>
-                                                <button
-                                                    class="ct_dark_green_btn ct_border_radius_5 h-auto py-3">Pay</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_orange_clr ct_fw_600">Pending</span>
-                                            </td>
-                                            <td>
-                                                <button
-                                                    class="ct_dark_green_btn ct_border_radius_5 h-auto py-3">Pay</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>
-                                                <img src="assets/img/business_logo_1.png" alt=""
-                                                    class="ct_img_40 ct_cursor_pointer" data-bs-toggle="modal"
-                                                    data-bs-target="#full_view_img">
-                                            </td>
-                                            <td>
-                                                Golfsmith Lane
-                                            </td>
-                                            <td>John Doe</td>
-                                            <td>Feb 23, 2024</td>
-                                            <td>
-                                                <span class="ct_orange_clr ct_fw_600">Pending</span>
-                                            </td>
-                                            <td>
-                                                <button
-                                                    class="ct_dark_green_btn ct_border_radius_5 h-auto py-3">Pay</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
             </div>

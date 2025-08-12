@@ -17,6 +17,7 @@ export class ViewSellerComponent {
   clientsList: any;
   sellerData: any;
   userImg1: any;
+  isLoading: boolean = false;
   @ViewChild('closeModalAcc') closeModalAcc!: ElementRef;
   @ViewChild('closeModalRej') closeModalRej!: ElementRef;
 
@@ -24,21 +25,22 @@ export class ViewSellerComponent {
 
   ngOnInit() {
     this.seller_id = this.route.snapshot.queryParamMap.get('seller_id');
-    this.getBuseSchedule(this.seller_id);
+    this.getSingleSeller(this.seller_id);
   }
 
-  getBuseSchedule(seller_id?: any) {
+  getSingleSeller(seller_id?: any) {
     this.service.get(`admin/get-seller-by-seller-id/${seller_id}`).subscribe({
       next: (resp: any) => {
         this.sellerData = resp.data;
       },
       error: error => {
-        console.log(error.message);
+        console.log(error);
       }
     });
   }
 
   reject() {
+    this.isLoading = true;
     const formURlData = new URLSearchParams()
     formURlData.set('seller_status', 'REJECTED')
     formURlData.set('user_id', this.seller_id)
@@ -47,24 +49,24 @@ export class ViewSellerComponent {
       .subscribe({
         next: (resp: any) => {
           if (resp.success == true) {
+            this.isLoading = false;
             this.toastr.success(resp.message);
             this.closeModalRej.nativeElement.click();
-            this.getBuseSchedule();
+            this.getSingleSeller();
           } else {
+            this.isLoading = false;
             this.toastr.warning(resp.message);
           }
         },
         error: (error: any) => {
-          if (error.error.message) {
-            this.toastr.error(error.error.message);
-          } else {
-            this.toastr.error('Something went wrong!');
-          }
+          this.isLoading = false;
+          this.toastr.warning(error || 'Something went wrong!');
         }
       })
   }
 
   accept() {
+    this.isLoading = true;
     const formURlData = new URLSearchParams()
     formURlData.set('seller_status', 'APPROVED')
     formURlData.set('user_id', this.seller_id)
@@ -73,19 +75,23 @@ export class ViewSellerComponent {
       .subscribe({
         next: (resp: any) => {
           if (resp.success == true) {
+            this.isLoading = false;
             this.toastr.success(resp.message);
             this.closeModalAcc.nativeElement.click();
-            this.getBuseSchedule();
+            this.getSingleSeller();
           } else {
+            this.isLoading = false;
             this.toastr.warning(resp.message);
           }
         },
         error: (error: any) => {
-          if (error.error.message) {
-            this.toastr.error(error.error.message);
-          } else {
-            this.toastr.error('Something went wrong!');
-          }
+          // if (error.error.message) {
+          //   this.toastr.error(error.error.message);
+          // } else {
+          //   this.toastr.error('Something went wrong!');
+          // }
+          this.isLoading = false;
+          this.toastr.warning(error || 'Something went wrong!');
         }
       })
   }

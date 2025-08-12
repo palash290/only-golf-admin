@@ -6,8 +6,8 @@
                     <h4 class="ct_fs_28 ct_fw_600 mb-0 ct_ff_Rajdhani">Post Management</h4>
                     <div class="d-flex align-items-center gap-2 ct_w_100_575">
                         <div class="ct_search ct_w_100_575">
-                            <input type="text" class="form-control" placeholder="Search"
-                                [(ngModel)]="searchText" (input)="filterTable()" />
+                            <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText"
+                                (input)="filterTable()" />
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
 
@@ -30,7 +30,7 @@
                             </tr>
                             <tr
                                 *ngFor="let item of filteredData | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
-                                <td>{{i+1}}</td>
+                                <td>{{(p - 1) * 10 + i + 1}}</td>
                                 <td>{{item.full_name}}</td>
                                 <td>
                                     <span class="ct_overlay_text">{{item.caption}}</span>
@@ -105,4 +105,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="ct_loader_main" *ngIf="isLoading">
+    <img src="assets/img/loader.gif" alt="">
 </div>

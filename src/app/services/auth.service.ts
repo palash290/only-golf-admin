@@ -9,13 +9,13 @@ export class AuthService {
   constructor(private router: Router) { }
 
   setValues(token: string, roleUUID: string, userInfo: any) {
-    localStorage.setItem('golfAdminToken', token)
+    localStorage.setItem('golfAdminToken', token);
     localStorage.setItem('role_uuid', roleUUID);
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
   }
 
   getToken() {
-    return localStorage.getItem('golfAdminToken')
+    return localStorage.getItem('golfAdminToken');
   };
 
   getUserInfo() {
@@ -23,14 +23,16 @@ export class AuthService {
   }
 
   isLogedIn() {
-    return this.getToken() !== null
+    return this.getToken() !== null;
   }
 
   logout(): void {
     localStorage.removeItem('role_uuid');
     localStorage.removeItem('golfAdminToken');
     localStorage.removeItem('userInfo');
-    this.router.navigateByUrl('/')
+    localStorage.removeItem('userPage');
+    localStorage.removeItem('postPage');
+    this.router.navigateByUrl('/');
   };
 
   getRoleUUID(): string | null {

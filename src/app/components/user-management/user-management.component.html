@@ -32,7 +32,7 @@
                             </tr>
                             <tr
                                 *ngFor="let item of filteredData | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
-                                <td>{{i+1}}</td>
+                                <td>{{(p - 1) * 10 + i + 1}}</td>
                                 <td>{{item.full_name}}</td>
                                 <td>
                                     <span class="ct_overlay_text">{{item.email}}</span>
@@ -46,13 +46,6 @@
                                     }
                                 </td>
                                 <td>
-                                    <!-- <label class="toggle-switch">
-                                        <input type="checkbox">
-                                        <div class="toggle-switch-background">
-                                            <div class="toggle-switch-handle"></div>
-                                        </div>
-                                    </label> -->
-
                                     <label class="toggle-switch">
                                         <input type="checkbox" [(ngModel)]="item.is_user_banned"
                                             [ngModel]="item.is_user_banned == '1'" (click)="handleCheckboxChange(item)">
@@ -72,8 +65,9 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- (pageChange)="onPageChange($event)" -->
                 <pagination-controls class="ct_pagination_div" *ngIf="!(data?.length == 0)"
-                    (pageChange)="p = $event"></pagination-controls>
+                     (pageChange)="p = $event"></pagination-controls>
             </div>
         </div>
     </div>

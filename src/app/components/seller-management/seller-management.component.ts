@@ -30,7 +30,7 @@ export class SellerManagementComponent {
   }
 
   getDetails() {
-    this.commonService.get('admin/get-all-sellers?limit=10&offset=0').subscribe({
+    this.commonService.get('admin/get-all-sellers').subscribe({
       next: (resp: any) => {
         this.data = resp.data;
         this.filterTable();
@@ -42,18 +42,17 @@ export class SellerManagementComponent {
   }
 
   filterTable() {
+    this.p = 1;
     let filtered = this.data;
 
-    // Filter by status
     if (this.selectedStatus != 'ALL') {
       filtered = filtered.filter(item => item.seller_status == this.selectedStatus);
     }
 
-    // Filter by customer name
     if (this.searchText.trim()) {
       const keyword = this.searchText.trim().toLowerCase();
       filtered = filtered.filter(item =>
-      (item.user_name?.toLowerCase().includes(keyword) ||
+      (item.full_name?.toLowerCase().includes(keyword) ||
         item.business_name?.toLowerCase().includes(keyword))
       );
     }

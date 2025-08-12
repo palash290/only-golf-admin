@@ -6,7 +6,8 @@
                     <h4 class="ct_fs_28 ct_fw_600 mb-0 ct_ff_Rajdhani">Order Management</h4>
                     <div class="d-flex align-items-center gap-2 ct_w_100_575">
                         <div class="ct_search ct_w_100_575">
-                            <input type="text" class="form-control" placeholder="Search" />
+                            <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText"
+                                (input)="filterTable()" />
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
 
@@ -39,6 +40,13 @@
                                 <td>
                                     <span class="ct_orange_clr ct_fw_600">Pending</span>
                                 </td>
+
+                                <!-- <td>
+                                    <a [routerLink]="['/home/view-seller']" [queryParams]="{ order_id: item.user_id }"
+                                        class="ct_text_39A1FF">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+                                </td> -->
 
                                 <td>
                                     <a routerLink="/home/view-order" class="ct_text_39A1FF">

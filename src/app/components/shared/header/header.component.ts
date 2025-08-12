@@ -34,7 +34,7 @@ export class HeaderComponent {
           this.businessLogoUrl = resp.data.profile_image;
       },
       error: (error) => {
-        //this.toastr.warning(error.error?.message || 'Something went wrong!');
+        console.log(error || 'Something went wrong!');
       }
     });
   }

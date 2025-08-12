@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonService } from '../../../services/common.service';
 import { CommonModule } from '@angular/common';
 import Swiper from 'swiper';
 import { Navigation, Thumbs } from 'swiper/modules';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 Swiper.use([Navigation, Thumbs]);
 
@@ -18,33 +19,24 @@ export class ViewPostComponent {
 
   post_id: any;
   userData: any;
+  allComments: any;
   userImg1: any;
   thumbsSwiper: any;
+  isLoading: boolean = false;
+  isCommentVisible = false;
+  nestedCommentVisible: Set<any> = new Set();
+  nestedCommentLoading: number | null = null;
+  @ViewChild('closeModalDelete') closeModalDelete!: ElementRef;
 
-  constructor(private service: CommonService, private route: ActivatedRoute) { }
+  constructor(private service: CommonService, private route: ActivatedRoute, private toastr: NzMessageService,
+    private router: Router) { }
 
   ngOnInit() {
     this.post_id = this.route.snapshot.queryParamMap.get('post_id');
-    this.getBuseSchedule(this.post_id);
+    this.getSinglePost(this.post_id);
   }
 
-  images = [
-    "http://192.168.29.44:4000/1754468424973-51e18227-trg-2PCcZ7Xbq4U-unsplash.jpg",
-    "http://192.168.29.44:4000/1754468424980-529b986f-viktor-talashuk-bhoj9tHlsiY-unsplash.jpg", "http://192.168.29.44:4000/1754468424973-51e18227-trg-2PCcZ7Xbq4U-unsplash.jpg",
-    "http://192.168.29.44:4000/1754468424980-529b986f-viktor-talashuk-bhoj9tHlsiY-unsplash.jpg", "http://192.168.29.44:4000/1754468424973-51e18227-trg-2PCcZ7Xbq4U-unsplash.jpg",
-    "http://192.168.29.44:4000/1754468424980-529b986f-viktor-talashuk-bhoj9tHlsiY-unsplash.jpg", "http://192.168.29.44:4000/1754468424973-51e18227-trg-2PCcZ7Xbq4U-unsplash.jpg",
-    "http://192.168.29.44:4000/1754468424980-529b986f-viktor-talashuk-bhoj9tHlsiY-unsplash.jpg", "http://192.168.29.44:4000/1754468424973-51e18227-trg-2PCcZ7Xbq4U-unsplash.jpg",
-    "http://192.168.29.44:4000/1754468424980-529b986f-viktor-talashuk-bhoj9tHlsiY-unsplash.jpg", "http://192.168.29.44:4000/1754468424973-51e18227-trg-2PCcZ7Xbq4U-unsplash.jpg",
-    "http://192.168.29.44:4000/1754468424980-529b986f-viktor-talashuk-bhoj9tHlsiY-unsplash.jpg", "http://192.168.29.44:4000/1754468424973-51e18227-trg-2PCcZ7Xbq4U-unsplash.jpg",
-    "http://192.168.29.44:4000/1754468424980-529b986f-viktor-talashuk-bhoj9tHlsiY-unsplash.jpg", "http://192.168.29.44:4000/1754468424973-51e18227-trg-2PCcZ7Xbq4U-unsplash.jpg",
-    "http://192.168.29.44:4000/1754468424980-529b986f-viktor-talashuk-bhoj9tHlsiY-unsplash.jpg", "http://192.168.29.44:4000/1754468424973-51e18227-trg-2PCcZ7Xbq4U-unsplash.jpg",
-    "http://192.168.29.44:4000/1754468424980-529b986f-viktor-talashuk-bhoj9tHlsiY-unsplash.jpg", "http://192.168.29.44:4000/1754468424973-51e18227-trg-2PCcZ7Xbq4U-unsplash.jpg",
-    "http://192.168.29.44:4000/1754468424980-529b986f-viktor-talashuk-bhoj9tHlsiY-unsplash.jpg"
-  ]
-
-
   ngAfterViewInit() {
-    // Wait for DOM and Swiper setup
     setTimeout(() => {
       this.thumbsSwiper = new Swiper('.mySwiperThumbs', {
         spaceBetween: 10,
@@ -65,10 +57,10 @@ export class ViewPostComponent {
           swiper: this.thumbsSwiper,
         },
       });
-    }, 2000); // or use ngZone.runOutsideAngular if needed
+    }, 1000);
   }
 
-  getBuseSchedule(post_id: any) {
+  getSinglePost(post_id: any) {
     this.service.get(`post/${post_id}`).subscribe({
       next: (resp: any) => {
         this.userData = resp.data;
@@ -79,7 +71,63 @@ export class ViewPostComponent {
     });
   }
 
+  getComments(post_id: any) {
+    this.service.get(`comment/${post_id}`).subscribe({
+      next: (resp: any) => {
+        this.allComments = resp.data;
+        this.nestedCommentVisible.clear();
+      },
+      error: error => {
+        console.log(error.message);
+      }
+    });
+  }
 
+  getNestedComments(parent_comment_id: number) {
+    this.nestedCommentLoading = parent_comment_id;
+    this.service.get(`comment/nested/${parent_comment_id}`).subscribe({
+      next: (resp: any) => {
+        this.nestedCommentVisible.add(parent_comment_id);
+        const parent = this.allComments.find((c: { comment_id: number; }) => c.comment_id == parent_comment_id);
+        if (parent) {
+          parent.replies = resp.data || [];
+        }
+      },
+      error: error => {
+        this.nestedCommentVisible.clear();
+        console.error(error.message)
+      }
+    });
+  }
+
+  deletePost() {
+    this.isLoading = true;
+    this.service
+      .delete(`admin/delete-post/${this.post_id}`)
+      .subscribe({
+        next: (resp: any) => {
+          if (resp.success == true) {
+            this.toastr.success(resp.message);
+            this.closeModalDelete.nativeElement.click();
+            this.router.navigateByUrl('/home/post-management');
+            this.isLoading = false;
+          } else {
+            this.isLoading = false;
+            this.toastr.warning(resp.message);
+          }
+        },
+        error: (error: any) => {
+          this.isLoading = false;
+          this.toastr.warning(error || 'Something went wrong!');
+        }
+      })
+  }
+
+  toggleComment() {
+    this.getComments(this.post_id);
+    this.isCommentVisible = !this.isCommentVisible;
+    this.nestedCommentLoading = null;
+  }
 
 
 }

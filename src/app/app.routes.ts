@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
         path: '',
-        loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent),
-        title: 'Login',
+        loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent)
     },
     {
         path: 'forgot-password',
@@ -13,13 +13,12 @@ export const routes: Routes = [
     {
         path: 'reset-password',
         loadComponent: () => import('./components/reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
-        pathMatch: 'full',
-        title: 'Forgot Password',
+        pathMatch: 'full'
     },
     {
         path: 'home',
         loadComponent: () => import('./components/main/main.component').then(m => m.MainComponent),
-        // canActivate: [authGuard]
+        canActivate: [authGuard],
         children: [
             {
                 path: '',
@@ -28,165 +27,137 @@ export const routes: Routes = [
             },
             {
                 path: 'dashboard',
-                loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent),
-                title: 'Dashboard',
+                loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'user-management',
-                loadComponent: () => import('./components/user-management/user-management.component').then(m => m.UserManagementComponent),
-                title: 'User-Management',
+                loadComponent: () => import('./components/user-management/user-management.component').then(m => m.UserManagementComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'view-user',
-                loadComponent: () => import('./components/user-management/view-user/view-user.component').then(m => m.ViewUserComponent),
-                title: 'View-User',
+                loadComponent: () => import('./components/user-management/view-user/view-user.component').then(m => m.ViewUserComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'seller-management',
-                loadComponent: () => import('./components/seller-management/seller-management.component').then(m => m.SellerManagementComponent),
-                title: 'Seller-Management',
+                loadComponent: () => import('./components/seller-management/seller-management.component').then(m => m.SellerManagementComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'view-seller',
                 loadComponent: () => import('./components/seller-management/view-seller/view-seller.component').then(m => m.ViewSellerComponent),
-                title: 'View-Seller',
                 // canActivate: [authGuard]
             },
             {
                 path: 'seller-payout',
                 loadComponent: () => import('./components/seller-payout/seller-payout.component').then(m => m.SellerPayoutComponent),
-                title: 'Seller-Payout',
                 // canActivate: [authGuard]
             },
-
             {
                 path: 'order-management',
                 loadComponent: () => import('./components/order-management/order-management.component').then(m => m.OrderManagementComponent),
-                title: 'Seller-Management',
                 // canActivate: [authGuard]
             },
             {
                 path: 'view-order',
-                loadComponent: () => import('./components/order-management/view-order/view-order.component').then(m => m.ViewOrderComponent),
-                title: 'View-Order',
+                loadComponent: () => import('./components/order-management/view-order/view-order.component').then(m => m.ViewOrderComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'product-management',
-                loadComponent: () => import('./components/product-management/product-management.component').then(m => m.ProductManagementComponent),
-                title: 'Seller-Management',
+                loadComponent: () => import('./components/product-management/product-management.component').then(m => m.ProductManagementComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'view-product',
-                loadComponent: () => import('./components/product-management/view-product/view-product.component').then(m => m.ViewProductComponent),
-                title: 'view-product',
+                loadComponent: () => import('./components/product-management/view-product/view-product.component').then(m => m.ViewProductComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'post-management',
                 loadComponent: () => import('./components/post-management/post-management.component').then(m => m.PostManagementComponent),
-                title: 'post-management',
                 // canActivate: [authGuard]
             },
             {
                 path: 'view-post',
-                loadComponent: () => import('./components/post-management/view-post/view-post.component').then(m => m.ViewPostComponent),
-                title: 'view-post',
+                loadComponent: () => import('./components/post-management/view-post/view-post.component').then(m => m.ViewPostComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'sweepstakes',
-                loadComponent: () => import('./components/sweepstakes/sweepstakes.component').then(m => m.SweepstakesComponent),
-                title: 'sweepstakes',
+                loadComponent: () => import('./components/sweepstakes/sweepstakes.component').then(m => m.SweepstakesComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'view-sweepstakes',
-                loadComponent: () => import('./components/sweepstakes/view-sweepstakes/view-sweepstakes.component').then(m => m.ViewSweepstakesComponent),
-                title: 'view-sweepstakes',
+                loadComponent: () => import('./components/sweepstakes/view-sweepstakes/view-sweepstakes.component').then(m => m.ViewSweepstakesComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'add-sweepstakes',
-                loadComponent: () => import('./components/sweepstakes/add-sweepstakes/add-sweepstakes.component').then(m => m.AddSweepstakesComponent),
-                title: 'add-sweepstakes',
+                loadComponent: () => import('./components/sweepstakes/add-sweepstakes/add-sweepstakes.component').then(m => m.AddSweepstakesComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'rating-reviews',
-                loadComponent: () => import('./components/rating-reviews/rating-reviews.component').then(m => m.RatingReviewsComponent),
-                title: 'rating-reviews',
+                loadComponent: () => import('./components/rating-reviews/rating-reviews.component').then(m => m.RatingReviewsComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'group-management',
-                loadComponent: () => import('./components/group-management/group-management.component').then(m => m.GroupManagementComponent),
-                title: 'group-management',
+                loadComponent: () => import('./components/group-management/group-management.component').then(m => m.GroupManagementComponent)
                 // canActivate: [authGuard]
             },
             {
                 path: 'revenue',
                 loadComponent: () => import('./components/revenue/revenue.component').then(m => m.RevenueComponent),
-                title: 'revenue',
                 // canActivate: [authGuard]
             },
             {
                 path: 'marketplace-sales',
                 loadComponent: () => import('./components/marketplace-sales/marketplace-sales.component').then(m => m.MarketplaceSalesComponent),
-                title: 'revenue',
                 // canActivate: [authGuard]
             },
             {
                 path: 'support',
                 loadComponent: () => import('./components/support/support.component').then(m => m.SupportComponent),
-                title: 'support',
                 // canActivate: [authGuard]
             },
             {
                 path: 'view-support',
                 loadComponent: () => import('./components/support/view-support/view-support.component').then(m => m.ViewSupportComponent),
-                title: 'view-support',
                 // canActivate: [authGuard]
             },
             {
                 path: 'manage-legal-pages',
                 loadComponent: () => import('./components/manage-legal-pages/manage-legal-pages.component').then(m => m.ManageLegalPagesComponent),
-                title: 'manage-legal-pages',
                 // canActivate: [authGuard]
             },
             {
                 path: 'terms-conditions',
                 loadComponent: () => import('./components/manage-legal-pages/terms-conditions/terms-conditions.component').then(m => m.TermsConditionsComponent),
-                title: 'terms-conditions',
                 // canActivate: [authGuard]
             },
             {
                 path: 'privacy-policy',
                 loadComponent: () => import('./components/manage-legal-pages/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent),
-                title: 'privacy-policy',
                 // canActivate: [authGuard]
             },
             {
                 path: 'my-profile',
                 loadComponent: () => import('./components/my-profile/my-profile.component').then(m => m.MyProfileComponent),
-                title: 'my-profile',
                 // canActivate: [authGuard]
             },
             {
                 path: 'change-password',
                 loadComponent: () => import('./components/change-password/change-password.component').then(m => m.ChangePasswordComponent),
-                title: 'change-password',
                 // canActivate: [authGuard]
             },
             {
                 path: 'notifications',
                 loadComponent: () => import('./components/notifications/notifications.component').then(m => m.NotificationsComponent),
-                title: 'notifications',
                 // canActivate: [authGuard]
             },
         ]

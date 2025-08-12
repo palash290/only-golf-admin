@@ -17,6 +17,7 @@ export class MyProfileComponent {
 
   Form: FormGroup;
   isLoading: boolean = false;
+  name: any;
 
   constructor(private fb: FormBuilder, public validationErrorService: ValidationErrorService, private toastr: NzMessageService, private route: Router,
     private service: CommonService
@@ -39,6 +40,7 @@ export class MyProfileComponent {
             name: resp.data.full_name,
             email: resp.data.email,
           });
+          this.name = resp.data.full_name;
           this.profile_image = resp.data.profile_image;
         } else {
           this.isLoading = false;

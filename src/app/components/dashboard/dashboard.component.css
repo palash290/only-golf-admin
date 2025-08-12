@@ -1,0 +1,7 @@
+.ct_overlay_text {
+  width: 150px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+}

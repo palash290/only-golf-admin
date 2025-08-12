@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,14 +20,22 @@ export class UserManagementComponent {
   businessLogoUrl: string = '';
   p: any = 1;
 
-  constructor(private commonService: CommonService, private toastr: NzMessageService) { }
+  constructor(private commonService: CommonService, private toastr: NzMessageService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    // const savedPage = localStorage.getItem('userPage');
+    // this.p = savedPage ? Number(savedPage) : 1;
     this.getDetails();
   }
 
+  // onPageChange(page: number) {
+  //   this.p = page;
+  //   localStorage.setItem('userPage', String(page));
+  // }
+
+
   getDetails() {
-    this.commonService.get('admin/get-all-users?limit=10&offset=0').subscribe({
+    this.commonService.get('admin/get-all-users').subscribe({
       next: (resp: any) => {
         this.data = resp.data;
         this.filterTable();
@@ -94,6 +102,7 @@ export class UserManagementComponent {
   filteredData: any[] = [];
 
   filterTable() {
+    this.p = 1;
     let filtered = this.data;
     // Filter by customer name
     if (this.searchText.trim()) {

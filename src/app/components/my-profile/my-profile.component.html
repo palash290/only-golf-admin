@@ -7,7 +7,7 @@
                 <div class="ct_px_30_new  ct_outline_bg">
                     <div class="d-flex align-items-center justify-content-between gap-3 ct_flex_col_767">
                         <div class="d-flex align-items-center gap-4">
-                             <div class="ct_upload_user_profile_img mx-auto">
+                            <div class="ct_upload_user_profile_img mx-auto">
                                 <img [src]="profile_image ? profile_image : 'assets/img/np_pro.png'" alt=""
                                     class="ct_img_w_148" />
                                 <label for="ct_upload_user_profile2" class="position-relative d-block">
@@ -20,7 +20,7 @@
                                 </label>
                             </div>
                             <div>
-                                <h4 class="ct_fs_18 ct_fw_700 mb-1">Alice Johnson</h4>
+                                <h4 class="ct_fs_18 ct_fw_700 mb-1">{{name}}</h4>
                                 <p class="mb-0 ct_text_op_05 ct_fs_14">
                                     {{Form.get('email')?.value}}
                                 </p>
@@ -38,7 +38,7 @@
                                     <label for="" class="ct_fw_600 mb-2">Full Name</label>
                                     <input type="text" class="form-control ct_input" placeholder="Full name"
                                         value="Alice " formControlName="name" />
-                                    <span class="ct_text_red mt-2">{{validationErrorService.getErrorMessage('Name
+                                    <span class="ct_text_red mt-2">{{validationErrorService.getErrorMessage('Full
                                         name',
                                         Form.get('name'))}}</span>
                                 </div>

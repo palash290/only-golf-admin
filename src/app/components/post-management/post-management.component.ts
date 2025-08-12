@@ -20,10 +20,16 @@ export class PostManagementComponent {
   postId: any;
   @ViewChild('closeModalDelete') closeModalDelete!: ElementRef;
   p: any = 1;
+  isLoading: boolean = false;
 
-  constructor(private commonService: CommonService, private toastr: NzMessageService) {
+  constructor(private commonService: CommonService, private toastr: NzMessageService) { }
+
+  ngOnInit() {
+    // const savedPage = localStorage.getItem('postPage');
+    // this.p = savedPage ? Number(savedPage) : 1;
     this.getDetails();
   }
+
 
   getDetails() {
     this.commonService.get('admin/get-all-posts').subscribe({
@@ -32,7 +38,7 @@ export class PostManagementComponent {
         this.filterTable();
       },
       error: (error) => {
-        //this.toastr.warning(error.error?.message || 'Something went wrong!');
+        console.log(error || 'Something went wrong!');
       }
     });
   }
@@ -41,6 +47,7 @@ export class PostManagementComponent {
   filteredData: any[] = [];
 
   filterTable() {
+    this.p = 1;
     let filtered = this.data;
     // Filter by customer name
     if (this.searchText.trim()) {
@@ -58,27 +65,32 @@ export class PostManagementComponent {
   }
 
   deletePost() {
+    this.isLoading = true;
     this.commonService
       .delete(`admin/delete-post/${this.postId}`)
       .subscribe({
         next: (resp: any) => {
           if (resp.success == true) {
+            this.isLoading = false;
             this.toastr.success(resp.message);
             this.closeModalDelete.nativeElement.click();
             this.getDetails();
           } else {
+            this.isLoading = false;
             this.toastr.warning(resp.message);
           }
         },
         error: (error: any) => {
-          if (error.error.message) {
-            this.toastr.error(error.error.message);
-          } else {
-            this.toastr.error('Something went wrong!');
-          }
+          this.isLoading = false;
+          this.toastr.warning(error || 'Something went wrong!');
         }
       })
   }
+
+  // onPageChange(page: number) {
+  //   this.p = page;
+  //   localStorage.setItem('postPage', String(page));
+  // }
 
 
 }
