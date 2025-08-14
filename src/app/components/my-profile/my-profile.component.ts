@@ -31,8 +31,6 @@ export class MyProfileComponent {
   }
 
   getDetails() {
-    // const formURlData = new URLSearchParams();
-    // formURlData.set('amount', amount);
     this.service.get('admin/get-admin-profile').subscribe({
       next: (resp: any) => {
         if (resp.success) {

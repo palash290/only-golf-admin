@@ -54,10 +54,18 @@
                         </div>
 
                         <div class="mt-4">
-                            <button type="submit" class="ct_dark_green_btn ct_border_radius_5 ct_fw_600"
+                            <!-- <button type="submit" class="ct_dark_green_btn ct_border_radius_5 ct_fw_600"
                                 [disabled]="Form.invalid" (click)="submitDetails()">
                                 Save Changes
+                            </button> -->
+
+                            <button (click)="submitDetails()" type="submit" [disabled]="isLoading"
+                                class="ct_dark_green_btn ct_border_radius_5 ct_fw_600 ">
+                                <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"
+                                    aria-hidden="true"></span>
+                                {{ isLoading ? '' : 'Save Changes' }}
                             </button>
+
                         </div>
                     </form>
                 </div>
@@ -65,3 +73,7 @@
         </div>
     </div>
 </div>
+
+<!-- <div class="ct_loader_main" *ngIf="isLoading">
+    <img src="assets/img/loader.gif" alt="">
+</div> -->

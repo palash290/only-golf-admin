@@ -39,13 +39,13 @@
                                 <div class="col-lg-5">
                                     <div class="mb-4">
                                         <h5 class="ct_fs_16 ct_fw_600 mb-2">Full Name</h5>
-                                        <p class="mb-0  ct_text_666">{{userData?.full_name}}</p>
+                                        <p class="mb-0  ct_text_666">{{userData?.full_name ? userData?.full_name : '-'}}</p>
                                     </div>
                                 </div>
                                 <div class="col-lg-7">
                                     <div class="mb-4">
                                         <h5 class="ct_fs_16 ct_fw_600 mb-2">Username</h5>
-                                        <p class="mb-0  ct_text_666">{{userData?.full_name ? userData?.full_name : '-'}}
+                                        <p class="mb-0  ct_text_666">{{userData?.user_name ? userData?.user_name : '-'}}
                                         </p>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="col-lg-7">
                                     <div class="mb-4">
-                                        <h5 class="ct_fs_16 ct_fw_600 mb-2">About Him</h5>
+                                        <h5 class="ct_fs_16 ct_fw_600 mb-2">About</h5>
                                         <p class="mb-0  ct_text_666 ct_para_scroll ct_custom_scroll">{{userData?.about ?
                                             userData?.about : '-'}}
                                         </p>

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { CommonService } from '../../services/common.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-change-password',
@@ -21,7 +22,7 @@ export class ChangePasswordComponent {
   isPasswordVisible3: boolean = false;
 
 
-  constructor(private service: CommonService, private toastr: NzMessageService) { }
+  constructor(private service: CommonService, private toastr: NzMessageService, private router: Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -63,6 +64,7 @@ export class ChangePasswordComponent {
             console.log(resp.message)
             this.form.reset();
             this.loading = false;
+            this.router.navigateByUrl('/home/dashboard');
           } else {
             this.toastr.warning(resp.message);
             this.loading = false;
@@ -70,7 +72,7 @@ export class ChangePasswordComponent {
         },
         error: (error) => {
           this.loading = false;
-          this.toastr.warning('Old password is incorrect.');
+          this.toastr.warning(error);
           console.error('Login error:', error.message);
         }
       });

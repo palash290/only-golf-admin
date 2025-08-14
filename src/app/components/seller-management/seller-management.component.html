@@ -67,7 +67,7 @@
                                                 <label class="toggle-switch">
                                                     <input type="checkbox" [(ngModel)]="item.is_banned"
                                                         [ngModel]="item.is_banned == '1'"
-                                                        (click)="handleCheckboxChange(item)">
+                                                        (click)="handleCheckboxChange(item)" [disabled]="item.seller_status == 'PENDING' || item.seller_status == 'REJECTED'">
                                                     <div class="toggle-switch-background">
                                                         <div class="toggle-switch-handle"></div>
                                                     </div>
